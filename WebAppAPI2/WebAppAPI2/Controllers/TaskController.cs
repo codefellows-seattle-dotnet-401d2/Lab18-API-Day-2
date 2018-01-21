@@ -27,11 +27,10 @@ namespace WebAppAPI2.Controllers
 
         // GET: api/<controller>/{id}
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> Get(int id)
+        public TaskClass Get(int id)
         {
             TaskClass myTask = _context.Tasks2.FirstOrDefault(x => x.Id == id);
-            if (myTask != null) return Ok(myTask);
-            else return BadRequest();
+            return myTask;
         }
 
         // POST: api/<controller>
