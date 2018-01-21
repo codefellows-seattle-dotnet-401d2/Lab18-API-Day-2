@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebAppAPI2.Models
 {
@@ -16,7 +17,7 @@ namespace WebAppAPI2.Models
         public string Notes { get; set; }
 
         public DateTime Time { get; set; }
-
-        public int ListClassId { get; set; }
+        [ForeignKey("ListClassId")]
+        public int ?ListClassId { get; set; }
     }
 }
