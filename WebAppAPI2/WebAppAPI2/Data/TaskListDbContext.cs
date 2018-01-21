@@ -14,7 +14,7 @@ namespace WebAppAPI2.Data
 
         }
 
-        public DbSet<TaskClass> Tasks { get; set; }
-        public DbSet<ListClass> Lists { get; set; }
+        public DbSet<TaskClass> Tasks2 { get; set; }
+        public DbSet<ListClass> Lists2 { get; set; }
     }
 }

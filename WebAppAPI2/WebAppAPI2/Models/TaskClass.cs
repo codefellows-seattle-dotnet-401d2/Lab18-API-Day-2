@@ -17,6 +17,6 @@ namespace WebAppAPI2.Models
 
         public DateTime Time { get; set; }
 
-        public int ListId { get; set; }
+        public int ListClassId { get; set; }
     }
 }

@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 using WebAppAPI2.Models;
 using WebAppAPI2.Data;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace WebAppAPI2.Controllers
 {
     [Route("api/[controller]")]
@@ -24,14 +22,14 @@ namespace WebAppAPI2.Controllers
         [HttpGet]
         public IEnumerable<TaskClass> Get()
         {
-            return _context.Tasks;
+            return _context.Tasks2;
         }
 
         // GET: api/<controller>/{id}
         [HttpGet("{id:int}")]
         public TaskClass Get(int id)
         {
-            return _context.Tasks.FirstOrDefault(x => x.Id == id);
+            return _context.Tasks2.FirstOrDefault(x => x.Id == id);
         }
 
         // POST: api/<controller>
@@ -40,7 +38,7 @@ namespace WebAppAPI2.Controllers
         {
             if (!ModelState.IsValid) { return BadRequest(ModelState); }
             value.Time = DateTime.Now;
-            await _context.Tasks.AddAsync(value);
+            await _context.Tasks2.AddAsync(value);
             await _context.SaveChangesAsync();
             return CreatedAtAction("Get", new { value.Id }, value);
         }
@@ -53,9 +51,9 @@ namespace WebAppAPI2.Controllers
 
             value.Id = id;
             value.Time = DateTime.Now;
-            if(_context.Tasks.FirstOrDefault(x => x.Id == id) != null)
+            if(_context.Tasks2.FirstOrDefault(x => x.Id == id) != null)
             {
-                _context.Tasks.Update(value);
+                _context.Tasks2.Update(value);
                 await _context.SaveChangesAsync();
             }
             else
@@ -69,10 +67,10 @@ namespace WebAppAPI2.Controllers
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
-            TaskClass deleteTask = _context.Tasks.FirstOrDefault(x => x.Id == id);
+            TaskClass deleteTask = _context.Tasks2.FirstOrDefault(x => x.Id == id);
             if (deleteTask != null)
             {
-                _context.Tasks.Remove(deleteTask);
+                _context.Tasks2.Remove(deleteTask);
                 await _context.SaveChangesAsync();
                 return Ok();
             }
