@@ -1,5 +1,7 @@
 # Created by https://www.gitignore.io/api/linux,macos,windows,visualstudio,visualstudiocode
 
+WebAppAPI2/WebAppAPI2/appsettings.json
+
 ### Linux ###
 *~
 
@@ -368,3 +370,4 @@ __pycache__/
 
 
 # End of https://www.gitignore.io/api/linux,macos,windows,visualstudio,visualstudiocode
+/WebAppAPI2/WebAppAPI2/Migrations
