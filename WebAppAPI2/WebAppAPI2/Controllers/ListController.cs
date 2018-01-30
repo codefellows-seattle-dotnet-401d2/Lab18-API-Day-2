@@ -30,7 +30,10 @@ namespace WebAppAPI2.Controllers
         public ListClass Get(int id)
         {
             ListClass myList = _context.Lists2.FirstOrDefault(x => x.Id == id);
-            myList.TaskList = _context.Tasks2.Where(x => x.ListClassId == id).ToList();
+            if(myList != null)
+            {
+                myList.TaskList = _context.Tasks2.Where(x => x.ListClassId == id).ToList();
+            }
             return myList;
         }
 

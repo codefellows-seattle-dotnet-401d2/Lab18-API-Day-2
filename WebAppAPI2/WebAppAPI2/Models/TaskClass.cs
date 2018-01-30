@@ -18,6 +18,6 @@ namespace WebAppAPI2.Models
 
         public DateTime Time { get; set; }
         [ForeignKey("ListClassId")]
-        public int ?ListClassId { get; set; }
+        public int? ListClassId { get; set; }
     }
 }

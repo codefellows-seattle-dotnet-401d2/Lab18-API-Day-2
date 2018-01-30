@@ -106,7 +106,7 @@ namespace XUnitTestAPI2
                 // Arrange
                 TaskController controller = new TaskController(_context);
                 // Act
-                controller.Put(1, testTasks[0]);
+                Task<IActionResult> resultRequest = controller.Put(1, testTasks[0]);
                 TaskClass resultGet = controller.Get(1);
                 // Assert
                 Assert.Equal(testTasks[0], resultGet);
@@ -127,7 +127,7 @@ namespace XUnitTestAPI2
                 // Arrange
                 TaskController controller = new TaskController(_context);
                 // Act
-                controller.Delete(2);
+                Task<IActionResult> resultRequest = controller.Delete(2);
                 var result = controller.Get(2);
                 // Assert
                 Assert.Null(result);
