@@ -2,8 +2,9 @@
 #### Keep your tasks organized
 
 ## Task Item Model:
+This is the individual todo item on your todo list.
 
-### ID (int)
+### Id (int)
 Leave this blank when creating a new task. The database will fill this out.
 
 ### Created (long)
@@ -17,6 +18,29 @@ Fill this one in if you want to be reminded via pushbullet. Expects Unicode Time
 
 ### Description (string)
 Enter in whatever text data you want associated with your task here.
+
+## Category Model:
+Categories exist to organize your tasks.
+
+### Id (int)
+Leave blank, filled by database
+
+### Name (string) [Required]
+A display name for your category.
+
+## TaskCategoryAssoc (Association) Model:
+In order to add a TaskItem to a Category, you need to register an Association.
+First find the ID of your TaskItem and Category (somehow I dunno figure it out.)
+Then simply create a new TaskCategoryAsssoc with a Category matching the Category ID and TaskItem matching the Task Item Id.
+
+### Id (int)
+This only exists for the database, just ignore it.
+
+### Category (int)
+The ID of the Category we are associating.
+
+### TaskItem
+The ID of the Task you are adding to that Category.
 
 ## API Requests:
 Send your requests to (ADDRESSPLACEHOLDER)/api/. These routes are currently supported.

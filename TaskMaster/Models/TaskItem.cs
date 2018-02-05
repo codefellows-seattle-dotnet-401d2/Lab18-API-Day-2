@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,13 +22,13 @@ namespace TaskMaster.Models
         public long RemindAt { get; set; }
 
         //Required description
+        [Required]
         public string Description { get; set; }
 
         public TaskItem()
         {
             Id = null;
             Created = ToUnixTimestampTicks();
-
         }
         
         public static long ToUnixTimestampTicks() => new DateTime().ToUniversalTime().Ticks - UnixEpochTicks;
