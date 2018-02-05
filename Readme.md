@@ -1,4 +1,4 @@
-![cf](http://i.imgur.com/7v5ASc8.png) Lab 18 : Create Lists
+![cf](http://i.imgur.com/7v5ASc8.png) Lab 17 : Create Tasks
 =====================================
 
 ## To Submit this Assignment
@@ -13,19 +13,13 @@ Build an api that creates and saves individual tasks. Think of tasks like:
 1. "Take Cat to Vet"
 2. "Eat Ice Cream", etc... 
 
-Build another API Controller that associates those tasks with list
-1. Monday's Tasks
-2. Weekend Activities
-3. List of Procrastination 
+Don't worry about grouping these tasks just yet, only focus on the individual items. 
 
-- Use Postman or Fiddler to test your connections
-- Have the Create/Read/Update/Delete commands for both Controllers
-- Have a Database table for both of your tasks and lists
-- use asyncrounous programming (async...await)
-- Deploy your applicaiton to Azure
-- Include Model Binding and Validation.
-- be sure to check for Model State
-- Remember about routing (hint: /api/[controller]), and constraint tokens {int:id} above any actions
+1. Use Postman or Fiddler to test your connections
+2. Have the Create/Read/Update/Delete commands
+3. use asyncrounous programming (async...await)
+3. Deploy your applicaiton to Azure
+4. Remember about routing (hint: /api/[controller]), and constraint tokens {int:id} above any actions
 
 ## ReadMe
 A README is a module consumer's first -- and maybe only -- look into your creation. The consumer wants a module to fulfill their need, so you must explain exactly what need your module fills, and how effectively it does so.
