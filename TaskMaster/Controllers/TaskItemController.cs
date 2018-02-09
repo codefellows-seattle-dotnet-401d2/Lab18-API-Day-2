@@ -21,7 +21,7 @@ namespace TaskMaster.Controllers
             _context = context;
         }
 
-        //Create todo
+        //Create Complete
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]TaskItem taskItem)
         {
@@ -42,14 +42,14 @@ namespace TaskMaster.Controllers
         }
 
         //Update todo
-        public StatusCodeResult Put([FromBody]TaskItem taskItem)
+        public async Task<IActionResult> PutAsync([FromBody]TaskItem taskItem)
         {
             if(_context.TaskItems.Where(task => task.Id == taskItem.Id).ToList().Count > 0)
             {
                 TaskItem task_item = _context.TaskItems.FirstOrDefault(taskitem => taskitem.Id == taskItem.Id);
                 _context.TaskItems.Update(task_item);
-                _context.SaveChangesAsync();
-                return Ok();
+                await _context.SaveChangesAsync();
+                return CreatedAtAction("Get", new { taskItem.Id }, taskItem);
             }
             else
             {
