@@ -1,14 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using TaskMaster.Models;
 
 namespace TaskMaster.Data
 {
     public class TaskItemsDbContext : DbContext
     {
-        public DbSet<Models.TaskItem> TaskItems { get; set; }
+        public DbSet<TaskItem> TaskItems { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<TaskCategoryAssoc> Associations { get; set; }
 
         public TaskItemsDbContext(Microsoft.EntityFrameworkCore.DbContextOptions<TaskItemsDbContext> options) : base(options)
         {

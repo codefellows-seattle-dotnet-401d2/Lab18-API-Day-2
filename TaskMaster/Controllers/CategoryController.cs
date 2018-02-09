@@ -13,10 +13,10 @@ namespace TaskMaster.Controllers
     public class CategoryController : Controller
     {
 
-        private readonly CategoriesDbContext _context;
+        private readonly TaskItemsDbContext _context;
 
         //Constructor requires context in order to instantiate TaskItemController.
-        public CategoryController(CategoriesDbContext context)
+        public CategoryController(TaskItemsDbContext context)
         {
             _context = context;
         }
@@ -32,7 +32,29 @@ namespace TaskMaster.Controllers
 
         //Get all COMPLETE
         [HttpGet]
-        public List<Category> Get() => _context.Categories.ToList();
+        public List<Category> Get()
+        {
+            List<Category> categorylist = _context.Categories.ToList();
+            foreach (Category category in categorylist)
+            {
+                category.Tasks = new List<TaskItem>();
+
+                List<TaskCategoryAssoc> associations = _context.Associations.Where(assoc => assoc.Category == category.Id).ToList();
+
+                TaskItemController taskController = new TaskItemController(_context);
+                
+                // This code is beautiful and I love it.
+                category.Tasks = taskController.Get().Where(
+                    _task => associations.FirstOrDefault(
+                        a => a.TaskItem == _task.Id
+                    ) != null
+                ).ToList();
+                // *Mic drop*
+                
+            }
+
+            return categorylist;
+        }
 
         //Update COMPLETE
         public StatusCodeResult Put([FromBody]Category _category)
