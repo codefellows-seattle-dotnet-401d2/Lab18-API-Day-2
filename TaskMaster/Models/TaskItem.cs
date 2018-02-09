@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,13 +26,17 @@ namespace TaskMaster.Models
         [Required]
         public string Description { get; set; }
 
+        //auto filling list of categories that contain the task item.
+        [NotMapped]
+        public List<string> Categories { get; set; }
+
         public TaskItem()
         {
             Id = null;
-            Created = ToUnixTimestampTicks();
+            Created = ToUnixTimestampMS();
         }
         
-        public static long ToUnixTimestampTicks() => new DateTime().ToUniversalTime().Ticks - UnixEpochTicks;
+        public static long ToUnixTimestampMS() => (new DateTime().ToUniversalTime().Ticks - UnixEpochTicks) / 10000;
         private static readonly long UnixEpochTicks = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).Ticks;
     }
 }

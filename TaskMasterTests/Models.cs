@@ -80,8 +80,8 @@ namespace TaskMasterTests
             TaskItem newtaskitem = new TaskItem()
             {
                 Id = 1,
-                DueBy = TaskItem.ToUnixTimestampTicks() + 1000 * 60 * 30,
-                RemindAt = TaskItem.ToUnixTimestampTicks() + 1000 * 60 * 20,
+                DueBy = TaskItem.ToUnixTimestampMS() + 1000 * 60 * 30,
+                RemindAt = TaskItem.ToUnixTimestampMS() + 1000 * 60 * 20,
                 Description = "A task for tasking."
             };
 

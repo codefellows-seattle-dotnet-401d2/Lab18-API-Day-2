@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using TaskMaster.Data;
 using TaskMaster.Models;
 
@@ -13,40 +14,61 @@ namespace TaskMaster.Controllers
     public class CategoryController : Controller
     {
 
-        private readonly CategoriesDbContext _context;
+        private readonly TaskItemsDbContext _context;
 
         //Constructor requires context in order to instantiate TaskItemController.
-        public CategoryController(CategoriesDbContext context)
+        public CategoryController(TaskItemsDbContext context)
         {
             _context = context;
         }
 
         //Create COMPLETE
         [HttpPost]
-        public async Task<IActionResult> Post(string name)
+        public async Task<IActionResult> Post([FromBody]string name)
         {
-            await _context.Categories.AddAsync(new Category { Name = name });
+            Category category = new Category() { Name = name };
+            await _context.Categories.AddAsync(category);
             await _context.SaveChangesAsync();
-            return Ok();
-        } 
+            return CreatedAtAction("Get", new { category.Id }, category);
+        }
 
         //Get all COMPLETE
         [HttpGet]
-        public List<Category> Get() => _context.Categories.ToList();
+        public List<Category> Get()
+        {
+            List<Category> categorylist = _context.Categories.ToList();
+            foreach (Category category in categorylist)
+            {
+                category.Tasks = new List<TaskItem>();
+
+                List<TaskCategoryAssoc> associations = _context.Associations.Where(assoc => assoc.Category == category.Id).ToList();
+
+                TaskItemController taskController = new TaskItemController(_context);
+
+                // This code is beautiful and I love it.
+                category.Tasks = taskController.Get().Where(
+                    _task => associations.FirstOrDefault(
+                        a => a.TaskItem == _task.Id
+                    ) != null
+                ).ToList();
+                // *Mic drop*
+            }
+            return categorylist;
+        }
 
         //Update COMPLETE
-        public StatusCodeResult Put([FromBody]Category _category)
+        public async Task<IActionResult> PutAsync([FromBody]Category _category)
         {
-            if(_context.Categories.Where(category => category.Id == _category.Id).ToList().Count > 0)
+            if (_context.Categories.Where(category => category.Id == _category.Id).ToList().Count > 0)
             {
                 Category cat = _context.Categories.FirstOrDefault(category => category.Id == _category.Id);
                 _context.Categories.Update(cat);
-                _context.SaveChangesAsync();
-                return Ok();
+                await _context.SaveChangesAsync();
+                return CreatedAtAction("Get", new { cat.Id }, cat);
             }
             else
             {
-                return StatusCode(404);
+                return await Post(JsonConvert.SerializeObject(_category));
             }
         }
 
