@@ -28,7 +28,7 @@ namespace TaskMaster.Controllers
             await _context.Categories.AddAsync(new Category { Name = name });
             await _context.SaveChangesAsync();
             return Ok();
-        } 
+        }
 
         //Get all COMPLETE
         [HttpGet]
@@ -42,7 +42,7 @@ namespace TaskMaster.Controllers
                 List<TaskCategoryAssoc> associations = _context.Associations.Where(assoc => assoc.Category == category.Id).ToList();
 
                 TaskItemController taskController = new TaskItemController(_context);
-                
+
                 // This code is beautiful and I love it.
                 category.Tasks = taskController.Get().Where(
                     _task => associations.FirstOrDefault(
@@ -50,16 +50,14 @@ namespace TaskMaster.Controllers
                     ) != null
                 ).ToList();
                 // *Mic drop*
-                
             }
-
             return categorylist;
         }
 
         //Update COMPLETE
         public StatusCodeResult Put([FromBody]Category _category)
         {
-            if(_context.Categories.Where(category => category.Id == _category.Id).ToList().Count > 0)
+            if (_context.Categories.Where(category => category.Id == _category.Id).ToList().Count > 0)
             {
                 Category cat = _context.Categories.FirstOrDefault(category => category.Id == _category.Id);
                 _context.Categories.Update(cat);
