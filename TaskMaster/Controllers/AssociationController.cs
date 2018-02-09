@@ -27,12 +27,16 @@ namespace TaskMaster.Controllers
         {
             TaskCategoryAssoc association = new TaskCategoryAssoc { TaskItem = taskId, Category = categoryId };
 
-            if (!_context.Associations.Contains(association))
+            if (_context.Associations.FirstOrDefault(assoc => assoc.TaskItem == taskId && assoc.Category == categoryId) != null)
             {
                 await _context.Associations.AddAsync(association);
                 await _context.SaveChangesAsync();
+                return CreatedAtAction(actionName: "Get", value: association);
             }
-            return CreatedAtAction(actionName: "Get", value: association);
+            else
+            {
+                return StatusCode(418);
+            }
         }
 
         //Delete COMPLETE
@@ -41,12 +45,16 @@ namespace TaskMaster.Controllers
         {
             TaskCategoryAssoc association = new TaskCategoryAssoc { TaskItem = taskId, Category = categoryId };
 
-            if (_context.Associations.Contains(association))
+            if (_context.Associations.FirstOrDefault(assoc => assoc.TaskItem == taskId && assoc.Category == categoryId) != null)
             {
                 _context.Associations.Remove(association);
                 await _context.SaveChangesAsync();
+                return CreatedAtAction(actionName: "Delete", value: association);
             }
-            return CreatedAtAction(actionName: "Delete", value: association);
+            else
+            {
+                return StatusCode(404);
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -26,6 +27,7 @@ namespace TaskMaster.Models
         public string Description { get; set; }
 
         //auto filling list of categories that contain the task item.
+        [NotMapped]
         public List<string> Categories { get; set; }
 
         public TaskItem()

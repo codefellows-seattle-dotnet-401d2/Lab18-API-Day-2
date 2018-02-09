@@ -8,6 +8,7 @@ namespace TaskMaster.Models
 {
     public class TaskCategoryAssoc
     {
+        public int Id { get; set; }
         //Associated Category Id
         [Required]
         public int Category { get; set; }
